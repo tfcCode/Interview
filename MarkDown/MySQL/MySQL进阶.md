@@ -105,7 +105,7 @@ create [unique] index <indexName> on <tableName>(columnName(length))
 alter <tableName> add [unique] index <indexName> on (columnName(length))
 ```
 
-如果是唯一索引就加上[unique]修饰字段
+如果是唯一索引就加上`[unique]`修饰字段
 
 > 删除索引
 
@@ -125,25 +125,25 @@ show index from <tableName>
 
 1、添加一个主键，这意味着索引值必须是唯一的，且不能为空
 
-```c
+```sql
 alter table <tableName> add primary key(columnName)
 ```
 
 2、添加的索引值必须是唯一的，NULL 除外，NULL 可能会出现多次
 
-```c
+```sql
 alter table <tableName> add unique <indexName>(columnName)
 ```
 
 3、添加普通索引，索引值可以出现多次
 
-```c
+```sql
 alter table <tableName> add index <indexName>(colunmName)
 ```
 
 4、添加一个全文索引
 
-```c
+```sql
 alter table <tableName> add fulltext <indexName>(columnName)
 ```
 
@@ -155,11 +155,11 @@ alter table <tableName> add fulltext <indexName>(columnName)
 
 > 语法
 
-```c
+```sql
 explain <SQL语句>
 ```
 
-可以查看语句的执行计划，例子如下 explain select * from article：
+可以查看语句的执行计划，例子如下 `explain select * from article`：
 
 ![](images/Snipaste_2021-08-26_22-28-56.jpg)
 
@@ -325,7 +325,7 @@ system > const > eq_ref > ref > range > index > ALL
 
 ![](images/Snipaste_2021-08-28_19-42-14.jpg)
 
-4）**using where**：表名使用了 where 过滤
+4）**using where**：表示使用了 where 过滤
 
 5）**using join buffer**：表示使用了连接缓存
 
@@ -409,8 +409,6 @@ CREATE INDEX idx_book_card ON book (card)
 
 ![](images/Snipaste_2021-08-31_21-39-52.jpg)
 
-完美收工！
-
 
 
 ## 三表索引
@@ -424,8 +422,10 @@ SELECT
 	* 
 FROM
 	class
-LEFT JOIN book ON class.card = book.card
-LEFT JOIN phone ON book.card = phone.card
+LEFT JOIN 
+	book ON class.card = book.card
+LEFT JOIN 
+	phone ON book.card = phone.card
 ```
 
 建立索引：
@@ -472,7 +472,7 @@ CREATE INDEX idx_phone_card ON phone(card)
 SELECT * FROM staffs WHERE NAME = '2000'
 ```
 
-如果 NAME 查询条件没有加 ''，则索引会失效
+如果 NAME 查询条件没有加 ' '，则索引会失效
 
 9、尽量不用 `or` 查询：少用 or，**用它来连接时会索引失效** 
 
@@ -625,7 +625,7 @@ EXPLAIN SELECT * FROM tblA ORDER BY age ASC,birth DESC
 
 * index效率高，它是指扫描索引本身完成排序，filesort效率低
 
-2、ORDER BY 子句，尽量使用 index 方式排序，避免 filesort 方式排序
+2、ORDER BY 子句，尽量按照 index 索引字段的顺序排序，避免 filesort 方式排序
 
 3、ORDER BY 子句满足两种情况，会使用 index排序
 
@@ -681,7 +681,7 @@ I\O 是很耗时的，所以在 mysql4.1 之后，出现了第二种改进的算
 
 1、group by 实质是先排序后进行分组，遵照索引建立的最佳左前缀原则
 
-2、当无法使用索引列，增大 max_length_for_sort_data参数的设置 + 增大 sort_buffer_size 参数的设置
+2、当无法使用索引列，增大`max_length_for_sort_data`参数的设置 + 增大`sort_buffer_size`参数的设置
 
 3、where 高于 having，能写在 where 限定的条件就不要去 having 限定了
 

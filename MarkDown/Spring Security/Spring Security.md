@@ -20,9 +20,9 @@ public class HelloController {
 Using generated security password: 30abfb1f-36e1-446a-a79b-f70024f589ab
 ```
 
-​	这时 Spring Security 默认提供的一个默认登录密码（默认用户名是 **user**），**如果不进行设置的话，每次启动临时密码都不一样** 
+这时 Spring Security 默认提供的一个默认登录密码（默认用户名是 **user**），**如果不进行设置的话，每次启动临时密码都不一样** 
 
-​	在 Spring Security 中，默认的登录页面和登录接口都是 `/login` ，只不过一个是 get 请求（登录页面），另一个是 post 请求（登录接口）
+在 Spring Security 中，默认的登录页面和登录接口都是 `/login` ，只不过一个是 get 请求（登录页面），另一个是 post 请求（登录接口）
 
 **「大家可以看到，非常方便，一个依赖就保护了所有接口」** 
 
@@ -43,9 +43,9 @@ spring.security.user.password=111
 
 ### 2、通过配置类进行配置
 
-* 密码加密方式：实现 **PasswordEncoder** 接口
+密码加密方式：实现 **PasswordEncoder** 接口
 
-  Spring Security 提供了多种密码加密方案，官方推荐使用 **BCryptPasswordEncoder**，而BCryptPasswordEncoder 就是 PasswordEncoder 接口的实现类，BCryptPasswordEncoder 使用 BCrypt 强哈希函数，开发者在使用时可以选择提供 strength 和 SecureRandom 实例。strength 越大，密钥的迭代次数越多，密钥迭代次数为 2^strength。strength 取值在 4~31 之间，默认为 10
+Spring Security 提供了多种密码加密方案，官方推荐使用 **BCryptPasswordEncoder**，而BCryptPasswordEncoder 就是 PasswordEncoder 接口的实现类，BCryptPasswordEncoder 使用 BCrypt 强哈希函数，开发者在使用时可以选择提供 strength 和 SecureRandom 实例。strength 越大，密钥的迭代次数越多，密钥迭代次数为 2^strength。strength 取值在 4~31 之间，默认为 10
 
 ```java
 public interface PasswordEncoder {
@@ -66,6 +66,7 @@ public interface PasswordEncoder {
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
@@ -95,9 +96,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 ### 3、实现UserDetailService接口
 
-​	由于 Spring Security 支持多种数据源，例如内存、数据库、LDAP 等，这些不同来源的数据被共同封装成了一个 UserDetailService 接口，任何实现了该接口的对象都可以作为认证数据源
+由于 Spring Security 支持多种数据源，例如内存、数据库、LDAP 等，这些不同来源的数据被共同封装成了一个 UserDetailService 接口，任何实现了该接口的对象都可以作为认证数据源
 
-​	因此我们还可以通过**重写 WebSecurityConfigurerAdapter 中的 userDetailsService 方法来提供一个 UserDetailService 实例进而配置多个用户**：
+因此我们还可以通过**重写 WebSecurityConfigurerAdapter 中的 userDetailsService 方法来提供一个 UserDetailService 实例进而配置多个用户**：
 
 ```java
 @Bean
@@ -113,7 +114,7 @@ protected UserDetailsService userDetailsService() {
 
 ## 自定义登录页面
 
-​	在Spring Security 的配置类 SecurityConfig 类中，继续重写它的 `configure(WebSecurity web)` 和 `configure(HttpSecurity http)` 方法，如下：
+在Spring Security 的配置类 SecurityConfig 类中，继续重写它的 `configure(WebSecurity web)` 和 `configure(HttpSecurity http)` 方法，如下：
 
 ```java
 @Override
@@ -134,7 +135,7 @@ protected void configure(HttpSecurity http) throws Exception {
 }
 ```
 
-​	设置了 loginPage("/login.html")，之后，登录接口默认也是这个，所以在 form 表单中，注意 action 为 `/login.html` 
+设置了 loginPage("/login.html")，之后，登录接口默认也是这个，所以在 form 表单中，注意 action 为 `/login.html` 
 
 ```html
 <form action="/login.html" method="post">
@@ -152,7 +153,7 @@ protected void configure(HttpSecurity http) throws Exception {
 
 
 
-​	在 Spring Security 中，如果我们不做任何配置，默认的登录页面和登录接口的地址都是 `/login`，也就是说，默认会存在如下两个请求：
+在 Spring Security 中，如果我们不做任何配置，默认的登录页面和登录接口的地址都是 `/login`，也就是说，默认会存在如下两个请求：
 
 - GET http://localhost:8080/login
 - POST http://localhost:8080/login
@@ -167,9 +168,9 @@ protected void configure(HttpSecurity http) throws Exception {
 .and()
 ```
 
-​	当我们配置了 loginPage 为 `/login.html` 之后，这个配置从字面上理解，就是设置登录页面的地址为 `/login.html`。
+当我们配置了 loginPage 为 `/login.html` 之后，这个配置从字面上理解，就是设置登录页面的地址为 `/login.html`。
 
-​	实际上它还有一个隐藏的操作，就是登录接口地址也设置成 `/login.html` 了。换句话说，新的登录页面和登录接口地址都是 `/login.html`，现在存在如下两个请求：
+实际上它还有一个隐藏的操作，就是登录接口地址也设置成 `/login.html` 了。换句话说，新的登录页面和登录接口地址都是 `/login.html`，现在存在如下两个请求：
 
 - GET http://localhost:8080/login.html
 - POST http://localhost:8080/login.html
@@ -276,11 +277,11 @@ protected void configure(HttpSecurity http) throws Exception {
 
 ### 2、前后端分离的数据交互
 
-​	在前后端分离这样的开发架构下，前后端的交互都是通过 JSON 来进行，**无论登录成功还是失败，都不会有什么服务端跳转或者客户端跳转之类** 
+在前后端分离这样的开发架构下，前后端的交互都是通过 JSON 来进行，**无论登录成功还是失败，都不会有什么服务端跳转或者客户端跳转之类** 
 
-​	登录成功了，服务端就返回一段登录成功的提示 JSON 给前端，前端收到之后，该跳转该展示，由前端自己决定，就和后端没有关系了
+登录成功了，服务端就返回一段登录成功的提示 JSON 给前端，前端收到之后，该跳转该展示，由前端自己决定，就和后端没有关系了
 
-​	登录失败了，服务端就返回一段登录失败的提示 JSON 给前端，前端收到之后，该跳转该展示，由前端自己决定，也和后端没有关系了
+登录失败了，服务端就返回一段登录失败的提示 JSON 给前端，前端收到之后，该跳转该展示，由前端自己决定，也和后端没有关系了
 
 
 
@@ -289,11 +290,9 @@ protected void configure(HttpSecurity http) throws Exception {
 - defaultSuccessUrl
 - successForwardUrl
 
-​    **这两个都是配置跳转地址的，适用于前后端不分的开发**。除了这两个方法之外，还有一个必杀技，那就是 **successHandler** 
+**这两个都是配置跳转地址的，适用于前后端不分的开发**。除了这两个方法之外，还有一个必杀技，那就是 **successHandler** 
 
-
-
-​	successHandler 的功能十分强大，甚至已经囊括了 defaultSuccessUrl 和 successForwardUrl 的功能。我们来看一下：
+successHandler 的功能十分强大，甚至已经囊括了 defaultSuccessUrl 和 successForwardUrl 的功能。我们来看一下：
 
 ```java
 .successHandler((req, resp, authentication) -> {
@@ -306,7 +305,7 @@ protected void configure(HttpSecurity http) throws Exception {
 })
 ```
 
-​	successHandler 方法的参数是一个 **AuthenticationSuccessHandler** 对象，这个对象中我们要实现的方法是 **onAuthenticationSuccess** 
+successHandler 方法的参数是一个 **AuthenticationSuccessHandler** 对象，这个对象中我们要实现的方法是 **onAuthenticationSuccess** 
 
 **onAuthenticationSuccess 方法有三个参数**，分别是：
 
@@ -314,9 +313,7 @@ protected void configure(HttpSecurity http) throws Exception {
 - HttpServletResponse
 - Authentication
 
-​    有了前两个参数，我们就可以在这里随心所欲的返回数据了。利用 HttpServletRequest 我们可以做服务端跳转，利用 HttpServletResponse 我们可以做客户端跳转，当然，也可以返回 JSON 数据,**第三个 Authentication 参数则保存了我们刚刚登录成功的用户信息** 
-
-
+有了前两个参数，我们就可以在这里随心所欲的返回数据了。利用 HttpServletRequest 我们可以做服务端跳转，利用 HttpServletResponse 我们可以做客户端跳转，当然，也可以返回 JSON 数据,**第三个 Authentication 参数则保存了我们刚刚登录成功的用户信息** 
 
 
 
@@ -329,7 +326,8 @@ protected void configure(HttpSecurity http) throws Exception {
 - failureForwardUrl
 - failureUrl
 
-   **这两个方法在设置的时候也是设置一个即可**。failureForwardUrl 是登录失败之后会发生服务端跳转，failureUrl 则在登录失败之后，会发生重定向
+
+**这两个方法在设置的时候也是设置一个即可**。failureForwardUrl 是登录失败之后会发生服务端跳转，failureUrl 则在登录失败之后，会发生重定向
 
 > 2、前后端分离的回调方式
 
@@ -343,9 +341,7 @@ protected void configure(HttpSecurity http) throws Exception {
 })
 ```
 
-​	失败的回调也是三个参数，前两个就不用说了，第三个是一个 Exception，对于登录失败，会有不同的原因，**Exception 中则保存了登录失败的原因，我们可以将之通过 JSON 返回到前端** 
-
-
+失败的回调也是三个参数，前两个就不用说了，第三个是一个 Exception，对于登录失败，会有不同的原因，**Exception 中则保存了登录失败的原因，我们可以将之通过 JSON 返回到前端** 
 
 
 
@@ -375,7 +371,7 @@ protected void configure(HttpSecurity http) throws Exception {
 
 > 前后端分离的注销方式
 
-​	注销登录我们前面说过，按照前面的配置，注销登录之后，系统自动跳转到登录页面，这也是不合适的，如果是前后端分离项目，注销登录成功后返回 JSON 即可，配置如下：
+注销登录我们前面说过，按照前面的配置，注销登录之后，系统自动跳转到登录页面，这也是不合适的，如果是前后端分离项目，注销登录成功后返回 JSON 即可，配置如下：
 
 ```java
 .and()
@@ -394,11 +390,9 @@ protected void configure(HttpSecurity http) throws Exception {
 
 
 
-
-
 ## 未认证处理方案
 
-​	在前后端分离应用中，如果用户没有登录就访问一个需要认证后才能访问的页面，这个时候，我们不应该让用户重定向到登录页面，而是给用户一个尚未登录的提示，前端收到提示之后，再自行决定页面跳转
+在前后端分离应用中，如果用户没有登录就访问一个需要认证后才能访问的页面，这个时候，我们不应该让用户重定向到登录页面，而是给用户一个尚未登录的提示，前端收到提示之后，再自行决定页面跳转
 
 ```java
 .exceptionHandling()

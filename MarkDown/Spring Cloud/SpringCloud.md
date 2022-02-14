@@ -1484,7 +1484,7 @@ CAP 的核心理论
 * **A：Availability**（可用性）
 * **P：Partition tolerance**（分区容错性）
 
-​    一个分布式系统**不可能同时很好的满足一致性，可用性和分区容错性这三个需求**，因此，根据 CAP 原理将 NoSQL 数据库分成了满足 CA 原则、满足 CP 原则和满足 AP 原则三大类
+一个分布式系统**不可能同时很好的满足一致性，可用性和分区容错性这三个需求**，因此，根据 CAP 原理将 NoSQL 数据库分成了满足 CA 原则、满足 CP 原则和满足 AP 原则三大类
 
 1、CA：单点集群，满足一致性，可用性的系统，通常在可扩展性上不太强大
 
@@ -1504,9 +1504,9 @@ CAP 的核心理论
 
 **Spring Cloud Ribbon** 是基于 Netflix Ribbon 实现的一套**==客户端==负载均衡的工具** 
 
-​	Ribbon 是 Netfliⅸ 发布的开源项目，**主要功能是提供==客户端==的软件负载均衡算法和服务调用**。 Ribbon 客户端组件提供一系列完善的配置项如连接超时，重试等
+Ribbon 是 Netfliⅸ 发布的开源项目，**主要功能是提供==客户端==的软件负载均衡算法和服务调用**。 Ribbon 客户端组件提供一系列完善的配置项如连接超时，重试等
 
-​	在配置文件中列出 Load Balancer（简称LB）后面所有的机器， **Ribbon 会自动的帮助你基于某种规则（如简单轮询，随机连接等）去连接这些机器**。我们很容易使用 Ribbon 实现自定义的负载均衡算法
+在配置文件中列出 Load Balancer（简称LB）后面所有的机器， **Ribbon 会自动的帮助你基于某种规则（如简单轮询，随机连接等）去连接这些机器**。我们很容易使用 Ribbon 实现自定义的负载均衡算法
 
 
 
@@ -2258,7 +2258,7 @@ http://localhost/consumer/payment/hystrix/timeout/222
 
 * 设置自身调用超时时间的峰值，峰值内正常运行，超过了需要兜底的方法处处理，作服务降级 **fallback** 
 
-​        **首先在启动类上添加 `@EnableCircuitBreaker` 注解，然后在 Service 层的方法上使用 `@HystrixCommand` 注解来实现服务降级** 
+**首先在启动类上添加 `@EnableCircuitBreaker` 注解，然后在 Service 层的方法上使用 `@HystrixCommand` 注解来实现服务降级** 
 
 ```java
 @SpringBootApplication
@@ -4760,7 +4760,7 @@ http://localhost:3377/config/info
 
 ![](images/Snipaste_2020-11-24_19-29-07.png)
 
-默认情况下：`Namespace = public`，`Group = DEFAULT_GROUP`，**默认 **Cluster 是 DEFAULT** 
+默认情况下：`Namespace = public`，`Group = DEFAULT_GROUP`，**默认 Cluster 是 DEFAULT** 
 
 **Nacos 默认的命名空间是 public：** 
 
@@ -4797,7 +4797,7 @@ spring:
 
 ## 5、Nacos 集群和持久化
 
-**一个 `Nginx`、三个 `Nacos`、一个 `MySQL` 
+一个 `Nginx`、三个 `Nacos`、一个 `MySQL` 
 
 ### 更换数据库
 

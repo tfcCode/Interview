@@ -406,7 +406,7 @@ spring:
     ......
     ```
 
-    * 像这样的 ***AutoConfiguration 类都是容器中的一个组件，都被添加到了容器中，用来做自动配置
+    * 像这样的 **AutoConfiguration** 类都是容器中的一个组件，都被添加到了容器中，用来做自动配置
 
 * 每一个自动配置类进行自动配置功能，以 **HttpEncodingAutoConfiguration** 为例解释自动配置原理
 

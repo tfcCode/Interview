@@ -95,7 +95,7 @@ public class Foo {
 
 7、`hashCode()` 和 `equals()` 【⭐⭐⭐⭐】：这个问题经常问，面试官经常问为什么重写 `equals()` 时要重写 `hashCode()` 方法？另外，这个问题经常结合着 `HashSet` 问。
 
-**hashCode()** 用来确定元素在散列表中的位置，因此 **hashCode() 在散列表中才有用，在其它情况下没用**，散列表指的是：Java集合中本质是散列表的类，如 **HashMap，Hashtable，HashSet** 
+**hashCode()** 用来确定元素在散列表中的位置，因此 **hashCode() 在散列表中才有用，在其它情况下没用**，散列表指的是：Java集合中本质是散列表的类，如 **HashMap，Hashtable，HashSet**  
 
 如果两个对象相等，则 **hashCode()** 一定相等，但是如果两个对象的 **hashCode()** 不相等，这两个对象也不一定不相等，必须再由 **equals()** 进行判断是否真的相等。
 
@@ -106,7 +106,7 @@ public class Foo {
 8、**重载和重写的区别。** 【⭐⭐⭐⭐】
 
 * 重载：方法名相同，但返回值不同或参数列表不同
-* 重写：继承父类，重写父类方法，方法的方法名、返回值、参数列表必须和父类相同；实现接口也一样。
+* 重写：继承父类，重写父类方法，方法的方法名、参数列表必须和父类相同，但返回值必须是父类返回值的派生类，访问修饰符不能低于父类
 
 
 
@@ -188,7 +188,7 @@ public class Foo {
 
 `Exception` 和 `Error` 二者都是 Java 异常处理的重要子类，各自都包含大量子类。
 
-- `Exception` :程序本身可以处理的异常，可以通过 `catch` 来进行捕获。`Exception` 又可以分为 受检查异常(必须处理) 和 不受检查异常(可以不处理)。
+- `Exception`：程序本身可以处理的异常，可以通过 `catch` 来进行捕获。`Exception` 又可以分为 受检查异常(必须处理) 和 不受检查异常(可以不处理)。
 - `Error` ：`Error` 属于程序无法处理的错误 ，我们没办法通过 `catch` 来进行捕获。例如，Java 虚拟机运行错误（`Virtual MachineError`）、虚拟机内存不够错误(`OutOfMemoryError`)、类定义错误（`NoClassDefFoundError`）等 。这些异常发生时，Java 虚拟机（JVM）一般会选择线程终止。
 
 **受检查异常**：如果受检查异常没有被 `catch`/`throw` 处理的话，就没办法通过编译 。比如 IO 操作的代码。
