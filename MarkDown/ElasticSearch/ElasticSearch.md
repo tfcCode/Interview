@@ -177,10 +177,12 @@ DELETE: http://47.100.136.186:9200/customer/external/1
 * 必须是 `POST` 请求，且要携带 `_bulk` 
 * 语法格式如下
 
+```json
 {"action":{metedata}}
 {RequestBody}
+```
 
-`action`：表示动作，index是新增，delete是删除，update是更新
+`action`：表示动作，index 是新增，delete 是删除，update 是更新
 
 `RequestBody`：数据
 
@@ -229,7 +231,7 @@ POST: http://47.100.136.186:9200/customer/external/_bulk
 http://47.100.136.186:9200/bank/_search?q=*&sort=account_number:asc
 ```
 
-方式二：将查询条件放在请求体中(**推荐使用这种方式**)
+方式二：将查询条件放在请求体中（**推荐使用这种方式**）
 
 ```json
 GET /bank/_search  // 在 bank 索引下查询
@@ -287,7 +289,7 @@ GET /bank/_search
 }
 ```
 
-`match_phrase`：精确模糊匹配
+`match_phrase`：模糊匹配
 
 ```json
 GET /bank/_search
@@ -527,13 +529,7 @@ POST _reindex
 
 
 
-# 七、分词
-
-
-
-
-
-# 八、整合 Spring Boot
+# 七、整合 Spring Boot
 
 1、引入依赖：引入 high-level 版本的依赖（官方推荐）
 
@@ -566,26 +562,6 @@ public class ElasticSearchConfig {
 @Autowired
 private RestHighLevelClient esClient;
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
